@@ -1,4 +1,4 @@
-module.exports = function SecurityConfig(app) {
+module.exports = function(app) {
 
     var basicAuth = require('basic-auth');
 
