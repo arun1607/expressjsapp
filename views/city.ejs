@@ -1,0 +1,24 @@
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>District</th>
+        <th>Population</th>
+    </tr>
+    </thead>
+    <tbody>
+<%
+cities.forEach(function(city, index) {
+  %>
+    <tr>
+        <td><%=city.ID%></td>
+        <td><%=city.Name%></td>
+        <td><%=city.District%></td>
+        <td><%=city.Population%></td>
+    </tr>
+    <%
+    });
+      %>
+    </tbody>
+</table>

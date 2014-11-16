@@ -1,19 +1,14 @@
+module.exports = function (app) {
 
-module.exports = function(app) {
+    var city = require('./city')(app);
 
-    var users = require('./users');
+    var country = require('./country')(app);
 
-    app.use('/users', users);
-
-
-
-    app.use('/',function (req, res, next) {
-        console.log('%s %s — %s', (new Date).toString(), req.method, req.url);
-        return next();
-    });
+    app.use('/city', city);
+    app.use('/country', country);
 
     app.use('/', function (req, res) {
+        console.log("Req param are :" + req.params);
         res.render('index', {title: 'Express'});
     });
-
 };
