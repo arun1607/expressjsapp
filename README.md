@@ -1,1 +1,1 @@
-ample application to demonstrate express js functionality.
+Sample application to demonstrate express js functionality.
