@@ -1,4 +1,4 @@
-module.exports = function City(app) {
+module.exports = function Country(app) {
     var express = require('express');
     var router = express.Router();
     var Country = require('../models/country');
@@ -18,7 +18,7 @@ module.exports = function City(app) {
                 countries[0] = country;
                 this.responseCallback(this.req, this.res, countries);
             }.
-                bind({req: req, res: res, responseCallback: fetchCityResponseGenerator}))
+                bind({req: req, res: res, responseCallback: fetchCountryResponseGenerator}))
             .catch(function (err) {
                 console.log('An error occurred while searching for country for code :' + this.req.country_code, err);
             }.bind({req: req, res: res}));
@@ -31,20 +31,20 @@ module.exports = function City(app) {
             .then(function (countries) {
                 this.responseCallback(this.req, this.res, countries);
             }
-                .bind({req: req, res: res, responseCallback: fetchCityResponseGenerator}))
+                .bind({req: req, res: res, responseCallback: fetchCountryResponseGenerator}))
             .catch(function (err) {
                 console.log('An error occurred while fetching all countries', err);
             }
                 .bind({req: req, res: res}));
-    }
+    };
 
 
-    var fetchCityResponseGenerator = function (req, res, countries) {
+    var fetchCountryResponseGenerator = function (req, res, countries) {
         console.log('Sending JSON response');
         res.json(countries);
     };
 
-    var updateCityResponseGenerator = function (req, res, country) {
+    var updateCountryResponseGenerator = function (req, res, country) {
         console.log('Sending JSON response');
         res.json(country)
     };
@@ -52,25 +52,25 @@ module.exports = function City(app) {
     var updateCountry = function (req, res) {
         var updatedCountry = req.body;
         Country.update({
-            Name: updatedCountry.Name,
-            Continent: updatedCountry.Continent,
-            Region: updatedCountry.Region,
-            SurfaceArea: updatedCountry.SurfaceArea,
-            IndepYear: updatedCountry.IndepYear,
-            Population: updatedCountry.Population,
-            LifeExpectancy: updatedCountry.LifeExpectancy,
-            GNP: updatedCountry.GNP,
-            GNPOld: updatedCountry.GNPOld,
-            LocalName: updatedCountry.LocalName,
-            GovernmentForm: updatedCountry.GovernmentForm,
-            HeadOfState: updatedCountry.HeadOfState,
-            Capital: updatedCountry.Capital,
-            Code2: updatedCountry.Code2
-        }, {where:
-        {CODE: req.country_code} })
+                Name: updatedCountry.Name,
+                Continent: updatedCountry.Continent,
+                Region: updatedCountry.Region,
+                SurfaceArea: updatedCountry.SurfaceArea,
+                IndepYear: updatedCountry.IndepYear,
+                Population: updatedCountry.Population,
+                LifeExpectancy: updatedCountry.LifeExpectancy,
+                GNP: updatedCountry.GNP,
+                GNPOld: updatedCountry.GNPOld,
+                LocalName: updatedCountry.LocalName,
+                GovernmentForm: updatedCountry.GovernmentForm,
+                HeadOfState: updatedCountry.HeadOfState,
+                Capital: updatedCountry.Capital,
+                Code2: updatedCountry.Code2
+            },
+            {where: {CODE: req.country_code} })
             .then(function (rows) {
                 this.responseCallback(this.req, this.res, rows);
-            }.bind({req: req, res: res, responseCallback: updateCityResponseGenerator}))
+            }.bind({req: req, res: res, responseCallback: updateCountryResponseGenerator}))
             .catch(function (err) {
                 console.log('An error occurred while updating for country for code :' + this.req.country_code, err);
                 this.res.json(err);
@@ -79,7 +79,7 @@ module.exports = function City(app) {
 
     var deleteCountryResponseGenerator = function (req, res, country) {
         console.log('Sending JSON response');
-        res.json(country)
+        res.json(country);
     };
 
     var deleteCountry = function (req, res) {
@@ -114,8 +114,8 @@ module.exports = function City(app) {
             })
             .save()
             .then(
-            function (city) {
-                this.responseCallback(this.req, this.req, city);
+            function (country) {
+                this.responseCallback(this.req, this.req, country);
             }
                 .bind({req: req, res: res, responseCallback: createCountryResponseGenerator}))
             .catch(
